@@ -4,6 +4,7 @@ import "github.com/lshsuper/go-webboot/src/core"
 
 func main()  {
 
+
 	app:=core.NewWebBootServer(":10086")
 	defer app.Stop()
 

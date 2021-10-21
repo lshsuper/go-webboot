@@ -22,6 +22,7 @@ func NewWebBootServer(addr string)*WebBootServer {
 //AutoRegister 自动注册
 func (wServer *WebBootServer)AutoRegister()  {
 
+	wServer.parseController()
 
 }
 
@@ -36,7 +37,7 @@ func (wServer *WebBootServer)Stop()  {
 
 
 //parseController 转化
-func (wServer *WebBootServer)parseController()  {
+func (wServer *WebBootServer)parseController() []*ControllerMapper {
 
 	var controllerMappers []*ControllerMapper
 
@@ -129,11 +130,12 @@ func (wServer *WebBootServer)parseController()  {
 		return err
 	})
 
+	//控制器映射合法性判断
+	if controllerMappers==nil{
+		panic("[信息]:未检测到任何控制器及绑定方法")
+	}
 
-	//for _,v:=range controllerMappers{
-	//	v.Print()
-	//}
-
+    return controllerMappers
 
 }
 
