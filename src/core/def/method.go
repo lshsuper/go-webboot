@@ -8,6 +8,9 @@ const(
 	GET  Method ="GET"
 	POST        ="POST"
 )
+var(
+	allMethod=[]Method{GET,POST}
+)
 
 //String 转化字符串
 func (e Method)String()string  {
@@ -25,4 +28,9 @@ func (e Method)MethodAttr()string  {
 	default:
 		return ""
 	}
+}
+
+//GetAllMethod 获取所有方式的Method
+func GetAllMethod()[]Method  {
+	return allMethod
 }

@@ -35,7 +35,7 @@ func (a *ActionInfo)checkAttr()  {
 	}
 
 	//解析一下方法请求方式
-	for _,v:=range []def.Method{def.GET, def.POST}{
+	for _,v:=range def.GetAllMethod(){
 		if strings.Index(a.attribute,v.MethodAttr())>=0{
 			a.method=v
 			break
