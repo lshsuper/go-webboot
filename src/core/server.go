@@ -1,8 +1,7 @@
-package src
+package core
 
 import (
 	"fmt"
-	"github.com/lshsuper/go-webboot/src/core"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -16,7 +15,7 @@ type WebBootServer struct {
 
 }
 
-func NewWebBootServer(addr string)*WebBootServer  {
+func NewWebBootServer(addr string)*WebBootServer {
 	return &WebBootServer{}
 }
 
@@ -39,7 +38,7 @@ func (wServer *WebBootServer)Stop()  {
 //parseController 转化
 func (wServer *WebBootServer)parseController()  {
 
-	var controllerMappers []*core.ControllerMapper
+	var controllerMappers []*ControllerMapper
 
 	filepath.Walk("./", func(p string, info os.FileInfo, err error) error {
 		if !info.IsDir()&&strings.HasSuffix( info.Name(),"controller.go"){
@@ -53,8 +52,8 @@ func (wServer *WebBootServer)parseController()  {
 			//遍历定义
 
 			var (
-				curController *core.ControllerInfo
-				curMapper =core.NewControllerMapper()
+				curController *ControllerInfo
+				curMapper = NewControllerMapper()
 			)
 			for _,v:=range p.Decls{
 
@@ -82,7 +81,7 @@ func (wServer *WebBootServer)parseController()  {
 						panic(fmt.Sprintf("位置:%s-Info:%s",info.Name(),"控制器结构体定义不标准,请为控制器打上合适的标签"))
 					}
 
-					curController=core.NewControllerInfo()
+					curController= NewControllerInfo()
 					curController.Name=typeSpec.Name.Name
 					curController.SetAttribute(curDecl.Doc.List[0].Text)
 					curMapper.Controller=curController
@@ -110,7 +109,7 @@ func (wServer *WebBootServer)parseController()  {
 						panic(fmt.Sprintf("位置:%s|%s:%s-Info:%s",info.Name(),curDecl.Name,"请为该方法定义合适的注解"))
 					}
 
-					curAction:=core.NewActionInfo()
+					curAction:= NewActionInfo()
 					curAction.ControllerName=curController.Name
 					curAction.ActionName=curDecl.Name.Name
 					curAction.SetAttribute(curDecl.Doc.List[0].Text)
