@@ -80,7 +80,6 @@ func (wServer *WebBootServer)parseController()  {
 					//注解定义标准限定
 					if curDecl.Doc==nil||curDecl.Doc.List==nil{
 						panic(fmt.Sprintf("位置:%s-Info:%s",info.Name(),"控制器结构体定义不标准,请为控制器打上合适的标签"))
-
 					}
 
 					curController=core.NewControllerInfo()
